@@ -1,0 +1,49 @@
+name: tallerDevops
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      
+      - name: Run get update
+        run: sudo apt-get update
+
+      - name: Run get upgrade
+        run: sudo apt-get upgrade
+
+      - name: Install node modules
+        run: npm install
+
+      - name: Run test
+        run: npm test
+        
+        
+
+      # Runs a set of commands using the runners shell
+       
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: 72cc61f9-6ffd-41e0-af78-cfc3cf9b6c21
+          heroku_app_name: "tallerdevopsds" 
+          heroku_email: "carlos.alberto.bermudez@correounivalle.edu.co"
+          remote_branch: "main"
